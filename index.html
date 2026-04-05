@@ -6,13 +6,77 @@
     <!-- The title is now hardcoded -->
     <title>Home - Paws & Polish Pet Spa</title>
     <style>
-        body { font-family: sans-serif; line-height: 1.6; margin: 0; padding: 0; background-color: #f4f4f4; }
-        header { background: #333; color: #fff; padding: 1rem 0; text-align: center; }
-        nav { display: flex; justify-content: center; background: #444; }
-        nav a { color: white; padding: 14px 20px; text-decoration: none; text-align: center; }
-        nav a:hover { background-color: #555; }
-        .container { padding: 20px; }
-    </style>
+    /* General body styles */
+    body { 
+        font-family: sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 0; 
+        background-color: #f4f4f4; 
+    }
+    
+    /* --- CORRECTED HEADER STYLES --- */
+    header { 
+        background: #fff;
+        padding: 15px 20px; /* A little more vertical space */
+        border-bottom: 1px solid #ddd;
+        
+        /* 1. Use Flexbox to manage layout */
+        display: flex; 
+        
+        /* 2. Vertically align items to the middle */
+        align-items: center; 
+    }
+    
+    /* Style for the logo image */
+    .logo {
+        /* 3. Set a fixed width for the logo */
+        width: 80px;  /* Fixed width */
+        height: auto; /* Maintain aspect ratio */
+        
+        /* 4. Ensure it doesn't grow or shrink */
+        flex-shrink: 0; 
+        
+        /* 5. Add space between logo and title */
+        margin-right: 20px; 
+    }
+
+    /* Style for the main title */
+    header h1 {
+        font-size: 1.8em;
+        margin: 0; 
+        
+        /* 6. Allow the title to grow to fill space */
+        flex-grow: 1; 
+    }
+    /* --- END OF CORRECTED STYLES --- */
+
+    nav { 
+        display: flex; 
+        justify-content: center; 
+        background: #444; 
+    }
+    nav a { 
+        color: white; 
+        padding: 14px 20px; 
+        text-decoration: none; 
+        text-align: center; 
+    }
+    nav a:hover { 
+        background-color: #555; 
+    }
+    .container { 
+        padding: 20px; 
+    }
+    footer { 
+        text-align: center; 
+        padding: 20px; 
+        margin-top: 40px; 
+        background: #333; 
+        color: #fff; 
+    }
+</style>
+
 </head>
 <body>
     
