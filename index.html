@@ -15,41 +15,48 @@
         background-color: #f4f4f4; 
     }
     
-    /* --- CORRECTED HEADER STYLES --- */
+    /* --- FINAL HEADER STYLES --- */
     header { 
         background: #fff;
-        padding: 15px 20px; /* A little more vertical space */
+        padding: 15px 20px;
         border-bottom: 1px solid #ddd;
         
-        /* 1. Use Flexbox to manage layout */
-        display: flex; 
+        /* 1. Set the header as a positioning context. This is crucial. */
+        position: relative; 
         
-        /* 2. Vertically align items to the middle */
-        align-items: center; 
+        /* 2. Set a minimum height to ensure it looks good even if content is removed */
+        min-height: 50px;
+
+        /* 3. Use flex just to vertically align the logo if needed */
+        display: flex;
+        align-items: center;
     }
     
     /* Style for the logo image */
     .logo {
-        /* 3. Set a fixed width for the logo */
-        width: 80px;  /* Fixed width */
-        height: auto; /* Maintain aspect ratio */
-        
-        /* 4. Ensure it doesn't grow or shrink */
-        flex-shrink: 0; 
-        
-        /* 5. Add space between logo and title */
-        margin-right: 20px; 
+        /* The logo stays in the normal document flow, on the left */
+        width: 80px;
+        height: auto;
     }
 
     /* Style for the main title */
     header h1 {
+        margin: 0;
         font-size: 1.8em;
-        margin: 0; 
         
-        /* 6. Allow the title to grow to fill space */
-        flex-grow: 1; 
+        /* 4. Take the title out of the normal flow */
+        position: absolute;
+        
+        /* 5. The classic centering trick: */
+        left: 50%; /* Move the element's left edge to the page's 50% mark */
+        top: 50%;  /* Move the element's top edge to the header's 50% mark */
+        transform: translate(-50%, -50%); /* Shift the element back by half its own width and height */
+
+        /* 6. Prevent title from overlapping the logo on very small screens */
+        max-width: calc(100% - 200px); /* 100% width minus space for the logo and right padding */
+        text-align: center; /* Ensures text inside is centered if it wraps */
     }
-    /* --- END OF CORRECTED STYLES --- */
+    /* --- END OF FINAL STYLES --- */
 
     nav { 
         display: flex; 
@@ -76,6 +83,7 @@
         color: #fff; 
     }
 </style>
+
 
 </head>
 <body>
