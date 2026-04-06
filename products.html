@@ -76,7 +76,11 @@
         .product-item h3 { margin: 0 0 10px 0; }
         .product-item p { margin: 0 0 10px 0; color: #555; }
         .product-item .price { font-weight: bold; font-size: 1.2em; margin-bottom: 15px; min-height: 1.2em; }
+        .variant-options { margin-bottom: 15px; }
+        .variant-select { width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc; margin-top: 5px; }
 
+        .add-to-cart-btn { padding: 10px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: auto; }
+        .add-to-cart-btn:hover { background-color: #218838; }
         /* NEW: Styles for the variant dropdown */
         .variant-select {
             width: 100%;
@@ -237,7 +241,7 @@
              category: 'Orabio', 
              variants: [{ sku: 'OB017', color: 'Default', price: 90.00, image: 'web photo/111f4d2915757be3faa74d96be4f7572.jpg' }] 
         },
-            {id: 8, 
+            {id: 9, 
             name: 'PREMEAL Dental Coat', 
             category: 'PREMEAL', 
             variants: [
@@ -247,11 +251,19 @@
                 { sku: 'PM004', color: 'Skin Coat', price: 89.00, image: 'web photo/8332d5e3f910ea8836be9aec3110e699.jpg' }
             ]
         },
-            {id: 9,
+            {id: 8,
             name: 'Orabio Oral Care 海棉',
             category: 'Orabio',
             variants: [
                 { sku: 'OB018', color: 'Default', price: 50.00, image: 'web photo/fb9dd7499ee1a0758a2cde1adee13bf2.jpg'}
+                      
+        ]
+    },
+            {id: 8,
+            name: 'CoCo Gourmet 即食包裝',
+            category: 'Biophilla, Inc.',
+            variants: [
+                { sku: 'CG001', size:'50克', flavour: '雞肉 &蔬菜', price: 30.00, image: 'web photo/fb9dd7499ee1a0758a2cde1adee13bf2.jpg'}
                       
         ]
     },
@@ -283,22 +295,44 @@
             filteredProducts.forEach(product => {
                 const item = document.createElement('div');
                 item.className = 'product-item';
-                // Use a unique ID for each product card for easier selection
-                item.id = `product-${product.id}`; 
+                item.id = `product-${product.id}`;
                 
-                let variantSelectorHTML = '';
-                if (product.variants.length > 1) {
-                    variantSelectorHTML = `
-                        <select class="variant-select" data-product-id="${product.id}">
-                            ${product.variants.map(v => `<option value="${v.sku}">${v.color}</option>`).join('')}
-                        </select>
-                    `;
+                // --- NEW: LOGIC TO BUILD VARIANT DROPDOWNS ---
+                const options = {};
+                product.variants.forEach(v => {
+                    Object.keys(v).forEach(key => {
+                        if (key !== 'sku' && key !== 'price' && key !== 'image') {
+                            if (!options[key]) options[key] = new Set();
+                            options[key].add(v[key]);
+                        }
+                    });
+                });
+
+                let variantSelectorsHTML = '<div class="variant-options">';
+                Object.keys(options).forEach(optionName => {
+                    // Don't create a dropdown for a single, "Default" option
+                    if (options[optionName].size > 1 || !options[optionName].has('Default')) {
+                        const capitalizedOptionName = optionName.charAt(0).toUpperCase() + optionName.slice(1);
+                        variantSelectorsHTML += `
+                            <label for="select-${product.id}-${optionName}">${capitalizedOptionName}:</label>
+                            <select class="variant-select" data-product-id="${product.id}" data-option-name="${optionName}">
+                                ${Array.from(options[optionName]).map(value => `<option value="${value}">${value}</option>`).join('')}
+                            </select>
+                        `;
+                    }
+                });
+                variantSelectorsHTML += '</div>';
+                // --- END OF NEW LOGIC ---
+                
+                // Show selectors only if there are actual options to choose from
+                if (Object.keys(options).length === 0 || variantSelectorsHTML.includes('<select') === false) {
+                    variantSelectorsHTML = '';
                 }
 
                 item.innerHTML = `
                     <img src="${product.variants[0].image}" alt="${product.name}">
                     <h3>${product.name}</h3>
-                    ${variantSelectorHTML}
+                    ${variantSelectorsHTML}
                     <div class="price">$${product.variants[0].price.toFixed(2)}</div>
                     <button class="add-to-cart-btn" data-product-id="${product.id}">Add to Cart</button>
                 `;
