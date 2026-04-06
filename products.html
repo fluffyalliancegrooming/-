@@ -382,14 +382,25 @@
         function handleVariantChange(e) {
             const selectElement = e.target;
             const productId = parseInt(selectElement.dataset.productId);
-            const selectedSku = selectElement.value;
+            const productCard = document.getElementById(`product-${productId}`);
+            
+            // Get current selections from ALL dropdowns for this product
+            const selections = {};
+            productCard.querySelectorAll('.variant-select').forEach(sel => {
+                selections[sel.dataset.optionName] = sel.value;
+            });
             
             const product = products.find(p => p.id === productId);
-            const selectedVariant = product.variants.find(v => v.sku === selectedSku);
-            
-            const productCard = document.getElementById(`product-${productId}`);
-            productCard.querySelector('img').src = selectedVariant.image;
-            productCard.querySelector('.price').textContent = `$${selectedVariant.price.toFixed(2)}`;
+            // Find the variant that matches ALL selected options
+            const selectedVariant = product.variants.find(v => {
+                return Object.keys(selections).every(key => v[key] === selections[key]);
+            });
+
+            // Update image and price only if a valid combination is found
+            if (selectedVariant) {
+                productCard.querySelector('img').src = selectedVariant.image;
+                productCard.querySelector('.price').textContent = `$${selectedVariant.price.toFixed(2)}`;
+            }
         }
 
         function populateCategories() {
