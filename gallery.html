@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Work - 優獸聯萌</title>
+    <style>
+        /* General body styles (consistent with other pages) */
+        body { font-family: sans-serif; line-height: 1.6; margin: 0; padding: 0; background-color: #f4f4f4; }
+        header { background: #fff; padding: 15px 20px; border-bottom: 1px solid #ddd; position: relative; min-height: 50px; display: flex; align-items: center; }
+        .logo { width: 80px; height: auto; }
+        header h1 { margin: 0; font-size: 1.8em; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); max-width: calc(100% - 200px); text-align: center; }
+        nav { display: flex; justify-content: center; background: #444; }
+        nav a { color: white; padding: 14px 20px; text-decoration: none; text-align: center; }
+        nav a:hover { background-color: #555; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        footer { text-align: center; padding: 20px; margin-top: 40px; background: #333; color: #fff; }
+
+        /* --- NEW STYLES FOR THE PHOTO GALLERY --- */
+        .page-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .photo-gallery {
+            display: grid;
+            /* Creates a responsive grid that makes columns at least 300px wide */
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px; /* Space between photos */
+        }
+
+        .photo-item {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden; /* Ensures the image stays within the rounded corners */
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 250px; /* Fixed height for a uniform look */
+            object-fit: cover; /* Ensures the image covers the area without distortion */
+            display: block;
+        }
+
+        .photo-item figcaption {
+            padding: 15px;
+            font-style: italic;
+            color: #555;
+            text-align: center;
+        }
+        /* --- END OF NEW STYLES --- */
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Make sure your logo links back to the homepage -->
+        <a href="index.html">
+             <img src="web photo/paw.png" alt="Logo" class="logo">
+        </a>
+        <h1>優獸聯萌</h1>
+    </header>
+
+    <nav>
+        <!-- This is the new, updated navigation bar -->
+        <a href="index.html">主頁</a>
+        <a href="booking.html">預訂</a>
+        <a href="products.html">商品</a>
+        <a href="gallery.html">作品集</a> <!-- New Link -->
+        <a href="contact.html">聯絡我們</a>
+    </nav>
+
+    <div class="container">
+        <h2 class="page-title">作品集</h2>
+
+        <!-- The Photo Gallery -->
+        <div class="photo-gallery">
+            
+            <!-- Add a "figure" for each photo you want to display -->
+            
+            <figure class="photo-item"><img src="gallery photo/0a6d73fd-a074-4d2a-bcf4-8bbef30a8974.jpg" alt="Gallery photo 1"></figure>
+            <figure class="photo-item"><img src="gallery photo/0a6fa47d-150b-4c76-baba-6468e9508889.jpg" alt="Gallery photo 2"></figure>
+            <figure class="photo-item"><img src="gallery photo/0b895fd6-8184-44e8-931b-cf700b3350ba.jpg" alt="Gallery photo 3"></figure>
+            <figure class="photo-item"><img src="gallery photo/2f16757f-4cd9-4bed-878a-bccaa06af742.jpg" alt="Gallery photo 4"></figure>
+            <figure class="photo-item"><img src="gallery photo/3bd6f036-9e85-4197-8f9c-713adeb44cc7.jpg" alt="Gallery photo 5"></figure>
+            <figure class="photo-item"><img src="gallery photo/3d578d4d-61b8-4089-b359-b7a2f7a9b337.jpg" alt="Gallery photo 6"></figure>
+            <figure class="photo-item"><img src="gallery photo/05bae571-e644-4007-9c06-b85251c6a487.jpg" alt="Gallery photo 7"></figure>
+            <figure class="photo-item"><img src="gallery photo/6f7d4956-7237-454b-9373-37e2fbc783e5.jpg" alt="Gallery photo 8"></figure>
+            <figure class="photo-item"><img src="gallery photo/33c8c6ea-8461-48b5-bf42-5334f3ddad73.jpg" alt="Gallery photo 9"></figure>
+            <figure class="photo-item"><img src="gallery photo/044e7924-8e15-4af2-81d4-9bcf84e99d13.jpg" alt="Gallery photo 10"></figure>
+            <figure class="photo-item"><img src="gallery photo/53ed012c-a214-4b71-98e6-2770a49bf234.jpg" alt="Gallery photo 11"></figure>
+            <figure class="photo-item"><img src="gallery photo/81c3ab29-76fc-4aff-b420-c3d091d47ae3.jpg" alt="Gallery photo 12"></figure>
+            <figure class="photo-item"><img src="gallery photo/89c059fb-79ec-4e06-9a5d-30826dd2ec4e.jpg" alt="Gallery photo 13"></figure>
+            <figure class="photo-item"><img src="gallery photo/111C4844-2D1C-4EA8-877B-4174E247DEE3.jpg" alt="Gallery photo 14"></figure>
+            <figure class="photo-item"><img src="gallery photo/393b3359-26d7-44c1-afcb-8ca5bf0dadbb.jpg" alt="Gallery photo 15"></figure>
+            <figure class="photo-item"><img src="gallery photo/558f0634-2cd3-4a78-bb7b-053bf87e44c9.jpg" alt="Gallery photo 16"></figure>
+            <figure class="photo-item"><img src="gallery photo/691acfb2-7954-4e2b-8ce6-2ba7eeb09691.jpg" alt="Gallery photo 17"></figure>
+            <figure class="photo-item"><img src="gallery photo/726b6842-08a7-406f-a83c-35480b591e38.jpg" alt="Gallery photo 18"></figure>
+            <figure class="photo-item"><img src="gallery photo/751c213b-ba28-438a-9c00-195545037ad8.jpg" alt="Gallery photo 19"></figure>
+            <figure class="photo-item"><img src="gallery photo/4410cada-16f8-4c56-9ed1-40b01032ae89.jpg" alt="Gallery photo 20"></figure>
+            <figure class="photo-item"><img src="gallery photo/22622fac-da5b-4247-af50-8b5dac2428ca.jpg" alt="Gallery photo 21"></figure>
+            <figure class="photo-item"><img src="gallery photo/91330db0-0786-4441-b434-3e3f156fe1be.jpg" alt="Gallery photo 22"></figure>
+            <figure class="photo-item"><img src="gallery photo/43021814-a0b7-44ee-ad63-3cd40e0413f0.jpg" alt="Gallery photo 23"></figure>
+            <figure class="photo-item"><img src="gallery photo/a224e287-3eab-4908-869b-33517810bb42.jpg" alt="Gallery photo 24"></figure>
+            <figure class="photo-item"><img src="gallery photo/ae4cf8fb-a913-4ae3-b0bc-5879eec7fceb.jpg" alt="Gallery photo 25"></figure>
+            <figure class="photo-item"><img src="gallery photo/b0c4bfe3-af1c-4214-9f63-c6efa67b5891.jpg" alt="Gallery photo 26"></figure>
+            <figure class="photo-item"><img src="gallery photo/b287ba01-283c-4bb6-b704-469eec906fda.jpg" alt="Gallery photo 27"></figure>
+            <figure class="photo-item"><img src="gallery photo/b9286b1c-9e32-4850-bec7-f158f83b6a43.jpg" alt="Gallery photo 28"></figure>
+            <figure class="photo-item"><img src="gallery photo/c2cc0f7e-d4d7-4a04-a63f-43ef964eb8c0.jpg" alt="Gallery photo 29"></figure>
+            <figure class="photo-item"><img src="gallery photo/ca3fc31f-d7dd-44b5-bad2-c22b7979f660.jpg" alt="Gallery photo 30"></figure>
+            <figure class="photo-item"><img src="gallery photo/d96c1ee3-0add-4b4c-84d5-972af7ed1c87.jpg" alt="Gallery photo 31"></figure>
+            <figure class="photo-item"><img src="gallery photo/dae06901-d81d-4860-a92b-2b71e35a547b.jpg" alt="Gallery photo 32"></figure>
+            <figure class="photo-item"><img src="gallery photo/e1f6b090-2b2f-4fef-a4e2-281be10b5944.jpg" alt="Gallery photo 33"></figure>
+            <figure class="photo-item"><img src="gallery photo/e0236b72-a7f4-4473-8858-86363754eb41.jpg" alt="Gallery photo 34"></figure>
+            <figure class="photo-item"><img src="gallery photo/e7803c68-bb8f-489d-9686-30eeea4ce6f0.jpg" alt="Gallery photo 35"></figure>
+            <figure class="photo-item"><img src="gallery photo/EC51587F-19CD-4154-B518-28FF65DC622B.jpg" alt="Gallery photo 36"></figure>
+            <figure class="photo-item"><img src="gallery photo/f550eb64-b110-4de2-b922-ef0c59398978.jpg" alt="Gallery photo 37"></figure>
+            <figure class="photo-item"><img src="gallery photo/fc701817-6106-4dc1-9188-4801d672c347.jpg" alt="Gallery photo 38"></figure>
+            <figure class="photo-item"><img src="gallery photo/ff08bcc2-877d-4a2a-a37d-60fe68ab2225.jpg" alt="Gallery photo 39"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_0032.jpg" alt="Gallery photo 40"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_0033.jpg" alt="Gallery photo 41"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_0035.jpg" alt="Gallery photo 42"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_0036.jpg" alt="Gallery photo 43"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_0040.jpg" alt="Gallery photo 44"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_0042.jpg" alt="Gallery photo 45"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_0043 (1).jpg" alt="Gallery photo 46"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_0043.jpg" alt="Gallery photo 47"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_0044.jpg" alt="Gallery photo 48"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_0045.jpg" alt="Gallery photo 49"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_0046 (1).jpg" alt="Gallery photo 50"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_0046.jpg" alt="Gallery photo 51"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_0048.jpg" alt="Gallery photo 52"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_0074.jpg" alt="Gallery photo 53"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_0076.jpg" alt="Gallery photo 54"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_0080.jpg" alt="Gallery photo 55"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_0083.jpg" alt="Gallery photo 56"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_3340.jpg" alt="Gallery photo 57"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_3341.jpg" alt="Gallery photo 58"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_3346.jpg" alt="Gallery photo 59"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_3347.jpg" alt="Gallery photo 60"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_3348.jpg" alt="Gallery photo 61"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_3352.jpg" alt="Gallery photo 62"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_3353.jpg" alt="Gallery photo 63"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_3355.jpg" alt="Gallery photo 64"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_3356.jpg" alt="Gallery photo 65"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_3357.jpg" alt="Gallery photo 66"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_3392.jpg" alt="Gallery photo 67"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_3394.jpg" alt="Gallery photo 68"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_3398.jpg" alt="Gallery photo 69"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_3399.jpg" alt="Gallery photo 70"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_3402.jpg" alt="Gallery photo 71"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_3417.jpg" alt="Gallery photo 72"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_3418.jpg" alt="Gallery photo 73"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_3419.jpg" alt="Gallery photo 74"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_3420.jpg" alt="Gallery photo 75"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_3422.jpg" alt="Gallery photo 76"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_3424.jpg" alt="Gallery photo 77"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_3518.jpg" alt="Gallery photo 78"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_3542.jpg" alt="Gallery photo 79"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_3543.jpg" alt="Gallery photo 80"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_4819.jpg" alt="Gallery photo 81"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_4820.jpg" alt="Gallery photo 82"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_4825.jpg" alt="Gallery photo 83"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_4828.jpg" alt="Gallery photo 84"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_4829.jpg" alt="Gallery photo 85"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_4839.jpg" alt="Gallery photo 86"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_4846.jpg" alt="Gallery photo 87"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_4848.jpg" alt="Gallery photo 88"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_4849.jpg" alt="Gallery photo 89"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_4855.jpg" alt="Gallery photo 90"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_4856.jpg" alt="Gallery photo 91"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_4860.jpg" alt="Gallery photo 92"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_4861.jpg" alt="Gallery photo 93"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_5001.jpg" alt="Gallery photo 94"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_5002.jpg" alt="Gallery photo 95"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_5003.jpg" alt="Gallery photo 96"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_5006.jpg" alt="Gallery photo 97"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_5020.jpg" alt="Gallery photo 98"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_5021.jpg" alt="Gallery photo 99"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_5087.jpg" alt="Gallery photo 100"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_5088.jpg" alt="Gallery photo 101"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_5089.jpg" alt="Gallery photo 102"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_5090.jpg" alt="Gallery photo 103"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_5093.jpg" alt="Gallery photo 104"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_5097.jpg" alt="Gallery photo 105"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_5101.jpg" alt="Gallery photo 106"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_5103.jpg" alt="Gallery photo 107"></figure>
+            <figure class="photo-item"><img src="gallery photo/IMG_5105.jpg" alt="Gallery photo 108"></figure>
+
+
+        </div>
+    </div>
+
+    <footer>
+        <p>Copyright &copy; 2024 Paws & Polish Pet Spa</p>
+    </footer>
+</body>
+</html>
