@@ -319,7 +319,6 @@
                 item.className = 'product-item';
                 item.id = `product-${product.id}`;
                 
-                // --- NEW: LOGIC TO BUILD VARIANT DROPDOWNS ---
                 const options = {};
                 product.variants.forEach(v => {
                     Object.keys(v).forEach(key => {
@@ -331,16 +330,23 @@
                 });
 
                 let variantSelectorsHTML = '<div class="variant-options">';
-                Object.keys(options).forEach(optionName => {
-                    // Don't create a dropdown for a single, "Default" option
+                const optionKeys = Object.keys(options); // Get the list of option types (e.g., ['size', 'flavor'])
+
+                optionKeys.forEach(optionName => {
                     if (options[optionName].size > 1 || !options[optionName].has('Default')) {
                         const capitalizedOptionName = optionName.charAt(0).toUpperCase() + optionName.slice(1);
+                        
                         let labelHTML = '';
+                        // --- THIS IS THE KEY CHANGE ---
+                        // Only show the label if there are multiple option types (like size AND flavor),
+                        // OR if the single option type is NOT 'color'.
                         if (optionKeys.length > 1 || optionName !== 'color') {
                             labelHTML = `<label for="select-${product.id}-${optionName}">${capitalizedOptionName}:</label>`;
                         }
+                        // --- END OF KEY CHANGE ---
+                        
                         variantSelectorsHTML += `
-                            <label for="select-${product.id}-${optionName}">${capitalizedOptionName}:</label>
+                            ${labelHTML}
                             <select class="variant-select" data-product-id="${product.id}" data-option-name="${optionName}">
                                 ${Array.from(options[optionName]).map(value => `<option value="${value}">${value}</option>`).join('')}
                             </select>
@@ -348,9 +354,7 @@
                     }
                 });
                 variantSelectorsHTML += '</div>';
-                // --- END OF NEW LOGIC ---
                 
-                // Show selectors only if there are actual options to choose from
                 if (Object.keys(options).length === 0 || variantSelectorsHTML.includes('<select') === false) {
                     variantSelectorsHTML = '';
                 }
