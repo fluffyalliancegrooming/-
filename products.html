@@ -369,27 +369,48 @@
             cartCountSpan.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
         }
 
-        // --- UPDATED: addToCart Function ---
+        
         function addToCart(productId) {
             const productCard = document.getElementById(`product-${productId}`);
-            const selectElement = productCard.querySelector('.variant-select');
-            
-            // Determine the selected SKU. If no dropdown, use the first variant's SKU.
-            const selectedSku = selectElement ? selectElement.value : products.find(p => p.id === productId).variants[0].sku;
-            
-            const cartItem = cart.find(item => item.sku === selectedSku);
+            const product = products.find(p => p.id === productId);
+
+            let selectedVariant;
+            const selections = {};
+            const dropdowns = productCard.querySelectorAll('.variant-select');
+
+            if (dropdowns.length > 0) {
+                 dropdowns.forEach(sel => {
+                    selections[sel.dataset.optionName] = sel.value;
+                });
+                selectedVariant = product.variants.find(v => {
+                    return Object.keys(selections).every(key => v[key] === selections[key]);
+                });
+            } else {
+                // If no dropdowns, it's a simple product
+                selectedVariant = product.variants[0];
+            }
+
+            if (!selectedVariant) {
+                alert("This combination is not available.");
+                return;
+            }
+
+            const cartItem = cart.find(item => item.sku === selectedVariant.sku);
 
             if (cartItem) {
                 cartItem.quantity++;
             } else {
-                const product = products.find(p => p.id === productId);
-                const variant = product.variants.find(v => v.sku === selectedSku);
+                let name = product.name;
+                // Build a descriptive name, e.g., "Gourmet Pet Treats (100g, Chicken)"
+                const nameParts = Object.values(selections);
+                if(nameParts.length > 0) {
+                    name += ` (${nameParts.join(', ')})`;
+                }
+
                 cart.push({ 
-                    id: product.id, 
-                    sku: variant.sku,
-                    // Store the full name with variant for the cart display
-                    name: product.variants.length > 1 ? `${product.name} - ${variant.color}` : product.name,
-                    price: variant.price,
+                    sku: selectedVariant.sku,
+                    name: name,
+                    price: selectedVariant.price,
                     quantity: 1 
                 });
             }
