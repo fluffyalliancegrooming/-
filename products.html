@@ -1007,6 +1007,7 @@
         
         let cart = [];
 
+        // --- UPDATED: renderProducts Function ---
         function buildAndInitProducts() {
             products.forEach(product => {
                 const item = document.createElement('div');
@@ -1044,25 +1045,6 @@
                 productGallery.style.opacity = '1'; // Fade in
             });
         }
-        
-        // --- CATEGORY AND EVENT LISTENERS ---
-        function populateCategories() {
-            const categories = ['all', ...new Set(products.map(p => p.category))];
-            categorySelect.innerHTML = '';
-            categories.forEach(category => {
-                const option = document.createElement('option');
-                option.value = category;
-                option.textContent = category === 'all' ? 'All' : category.replace(/[^a-zA-Z0-9]/g, '-');
-                categorySelect.appendChild(option);
-            });
-        }
-        
-        categorySelect.addEventListener('change', () => {
-            const rawValue = categorySelect.value;
-            // The filter value must match the class name we created
-            const filterValue = rawValue === 'all' ? '*' : `.${rawValue.replace(/[^a-zA-Z0-9]/g, '-')}`;
-            iso.arrange({ filter: filterValue });
-        });
         
         // --- NEW: Function to handle variant changes ---
         function handleVariantChange(e) {
