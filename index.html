@@ -133,32 +133,13 @@
             font-weight: bold;
         }
     footer { 
-            padding: 20px; 
-            background: #333; 
-            color: #fff; 
-        }
-        .footer-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between; /* Pushes items to opposite ends */
-            align-items: center; /* Vertically aligns them */
-            flex-wrap: wrap; /* Allows items to wrap on small screens */
-            gap: 20px;
-        }
-        .footer-images {
-            display: flex;
-            gap: 15px; /* Space between the two images */
-            align-items: left;
-        }
-        .footer-images img {
-            height: 40px; /* Adjust height as needed */
-            width: auto;
-            align-items: left; /* Aligns images to the left */
-        }
-        .footer-copyright {
-            text-align: right;
-        }
+        text-align: center; 
+        padding: 20px; 
+        margin-top: 40px; 
+        background: #333; 
+        color: #fff; 
+    }
+        
     @media (max-width: 768px) {
             header h1 {
                 position: static; /* Let title flow normally on mobile */
@@ -178,20 +159,7 @@
             .about-text {
                 text-align: justify;
             }
-            .footer-container {
-                justify-content: center; /* Center everything in the footer on mobile */
-                text-align: center;
-            }
-            .footer-copyright {
-                width: 100%;
-                text-align: center;
-                order: 1; /* Puts copyright text first on mobile */
-            }
-            .footer-images {
-                width: 100%;
-                justify-content: center;
-                order: 2; /* Puts images second on mobile */
-            }
+           
         }
         
 </style>
@@ -293,7 +261,7 @@
         
     </div>
 
-    <footer style="text-align: center; padding: 20px; margin-top: 40px; background: #333; color: #fff;">
+    <footer >
         <a href="https://www.instagram.com/fluffyalliance_grooming?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">
             <img src="web photo/instargam logo.png" alt="logo" >
         </a>
