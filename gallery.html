@@ -251,10 +251,16 @@
             });
 
             // Initialize Isotope AFTER images are added to the DOM
-            iso = new Isotope(photoGallery, {
-                itemSelector: '.photo-item',
-                layoutMode: 'fitRows' // A popular layout mode
+            imagesLoaded(photoGallery, function() {
+                // Now that images are loaded, initialize Isotope
+                iso = new Isotope(photoGallery, {
+                    itemSelector: '.photo-item',
+                    layoutMode: 'fitRows'
+                });
+                // Fade in the gallery now that it's laid out correctly
+                photoGallery.style.opacity = '1';
             });
+        
         }
         
         function populateGalleryCategories() {
