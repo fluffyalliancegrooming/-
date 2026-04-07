@@ -251,48 +251,57 @@
         const categorySelect = document.getElementById('gallery-category-select');
 
         // Function to render the photo grid based on a filter
-        function renderGallery(filter = 'all') {
-            photoGallery.innerHTML = ''; // Clear the gallery first
-            
-            const filteredPhotos = (filter === 'all')
-                ? galleryPhotos
-                : galleryPhotos.filter(photo => photo.category === filter);
-
-            filteredPhotos.forEach(photo => {
+        function buildInitialGallery() {
+            // I've removed your empty 'caption' properties and added placeholders
+            // to ensure every photo has a caption.
+            galleryPhotos.forEach((photo, index) => {
                 const figure = document.createElement('figure');
                 figure.className = 'photo-item';
+                figure.dataset.category = photo.category; 
+                
                 figure.innerHTML = `
-                    <img src="${photo.src}" alt="${photo.category} - ${photo.caption}">
-                    <figcaption>${photo.caption}</figcaption>
+                    <img src="${photo.src}" alt="${photo.category}">
+                    <figcaption>${photo.caption || 'Our Work ' + (index + 1)}</figcaption>
                 `;
                 photoGallery.appendChild(figure);
             });
         }
-
-        // Function to find all unique categories and create the dropdown options
-        function populateGalleryCategories() {
-            // The 'Set' automatically handles duplicates
-            const categories = ['all', ...new Set(galleryPhotos.map(photo => photo.category))];
+        
+        // 2. Function to apply the filter by adding/removing CSS classes
+        function applyFilter(filter) {
+            const allPhotos = photoGallery.querySelectorAll('.photo-item');
             
+            allPhotos.forEach(photo => {
+                const photoCategory = photo.dataset.category;
+                
+                if (filter === 'all' || photoCategory === filter) {
+                    photo.classList.remove('hidden');
+                } else {
+                    photo.classList.add('hidden');
+                }
+            });
+        }
+
+        // 3. Function to find unique categories and create the dropdown
+        function populateGalleryCategories() {
+            const categories = ['all', ...new Set(galleryPhotos.map(photo => photo.category))];
             categorySelect.innerHTML = '';
             categories.forEach(category => {
                 const option = document.createElement('option');
                 option.value = category;
-                // Capitalize the first letter for display
-                option.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+                option.textContent = category === 'all' ? 'All' : category; // Display 'All' instead of 'all'
                 categorySelect.appendChild(option);
             });
         }
 
         // --- Event Listener ---
-        // When the user changes the dropdown selection, re-render the gallery
         categorySelect.addEventListener('change', () => {
-            renderGallery(categorySelect.value);
+            applyFilter(categorySelect.value);
         });
 
         // --- Initial Page Load ---
-        populateGalleryCategories(); // Create the dropdown options
-        renderGallery('all');      // Show all photos by default
+        buildInitialGallery();
+        populateGalleryCategories();
     });
     </script>
 
