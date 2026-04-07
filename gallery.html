@@ -238,14 +238,19 @@
         document.addEventListener('DOMContentLoaded', () => {
         const photoGallery = document.getElementById('photo-gallery');
         const categorySelect = document.getElementById('gallery-category-select');
-
+        let iso;
+        const toClassName = (name) => {
+            // This replaces any character that is NOT a letter, number, or hyphen with nothing.
+            return name.replace(/[^a-zA-Z0-9-]/g, '');
+        };
         // Function to build the initial gallery ONCE.
         function buildAndInitGallery() {
             // Build the HTML for the photos
             galleryPhotos.forEach(photo => {
                 const item = document.createElement('div');
-                // Isotope uses classes for filtering, so we add the category name as a class
-                item.className = `photo-item ${photo.category}`; 
+                // Use the helper function to create a SAFE class name
+                const safeCategoryClass = toClassName(photo.category);
+                item.className = `photo-item ${safeCategoryClass}`; 
                 item.innerHTML = `<img src="${photo.src}" alt="${photo.category}">`;
                 photoGallery.appendChild(item);
             });
@@ -276,8 +281,12 @@
 
         // --- Event Listener ---
         categorySelect.addEventListener('change', () => {
-            const filterValue = categorySelect.value === 'all' ? '*' : `.${categorySelect.value}`;
-            iso.arrange({ filter: filterValue });
+            const originalCategoryName = categorySelect.value;
+            // Use the helper function AGAIN to get the correct filter class
+            const filterValue = originalCategoryName === 'all' ? '*' : `.${toClassName(originalCategoryName)}`;
+            if (iso) {
+                iso.arrange({ filter: filterValue });
+            }
         });
 
         // --- Initial Page Load ---
