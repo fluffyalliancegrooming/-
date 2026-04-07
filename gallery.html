@@ -52,24 +52,24 @@
         }
 
         .photo-item {
-            border: 1px solid #ddd;
             border-radius: 8px;
-            overflow: hidden; /* Ensures the image stays within the rounded corners */
-            background: #fff;
+            overflow: hidden;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-
-            transition: opacity 0.5s ease, transform 0.5s ease, max-height 0.8s ease;
+            /* --- THIS IS THE ANIMATION MAGIC --- */
+            transition: all 0.5s ease-in-out; /* Animate ALL properties */
             opacity: 1;
             transform: scale(1);
-            max-height: 500px;
+            height: 250px; /* Give it a fixed height */
         }
+        
+        /* --- THIS IS THE KEY CHANGE FOR REARRANGEMENT --- */
         .photo-item.hidden {
             opacity: 0;
-            transform: scale(0.9);
-            max-height: 0; /* Animate the height to 0 to collapse the space */
+            transform: scale(0); /* Scale down to nothing */
+            height: 0; /* Animate height to 0 */
             padding: 0;
-            margin: -7.5px; /* Half of the gap to help with collapse */
-            border: none;
+            margin: 0;
+            border-width: 0;
         }
 
         .photo-item img {
