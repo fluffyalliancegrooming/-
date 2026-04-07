@@ -45,47 +45,34 @@
             margin-left: 10px;
         }
         .photo-gallery {
-            display: grid;
-            /* Creates a responsive grid that makes columns at least 300px wide */
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 15px; /* Space between photos */
+            /* Isotope will handle the layout, so we just need a container */
         }
-
+        
         .photo-item {
+            width: calc(33.333% - 10px); /* Example: 3 columns with gap */
+            margin-bottom: 15px;
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            /* --- THIS IS THE ANIMATION MAGIC --- */
-            transition: all 0.5s ease-in-out; /* Animate ALL properties */
-            opacity: 1;
-            transform: scale(1);
-            height: 250px; /* Give it a fixed height */
-        }
-        
-        /* --- THIS IS THE KEY CHANGE FOR REARRANGEMENT --- */
-        .photo-item.hidden {
-            opacity: 0;
-            transform: scale(0); /* Scale down to nothing */
-            height: 0; /* Animate height to 0 */
-            padding: 0;
-            margin: 0;
-            border-width: 0;
         }
 
         .photo-item img {
             width: 100%;
-            height: 250px; /* Fixed height for a uniform look */
-            object-fit: cover; /* Ensures the image covers the area without distortion */
+            height: auto;
             display: block;
         }
 
-        .photo-item figcaption {
-            padding: 15px;
-            font-style: italic;
-            color: #555;
-            text-align: center;
+        /* Responsive adjustments for Isotope item width */
+        @media (max-width: 992px) {
+            .photo-item {
+                width: calc(50% - 10px); /* 2 columns on tablets */
+            }
         }
-        /* --- END OF NEW STYLES --- */
+        @media (max-width: 576px) {
+            .photo-item {
+                width: 100%; /* 1 column on mobile */
+            }
+        }
     </style>
 </head>
 <body>
@@ -131,6 +118,7 @@
     <footer>
         <p>Copyright &copy; 優獸聯萌2026</p>
     </footer>
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 
     <script>
     // --- STEP 1: DEFINE YOUR PHOTOS AND THEIR CATEGORIES ---
@@ -252,35 +240,23 @@
         const categorySelect = document.getElementById('gallery-category-select');
 
         // Function to build the initial gallery ONCE.
-        function buildInitialGallery() {
+        function buildAndInitGallery() {
+            // Build the HTML for the photos
             galleryPhotos.forEach(photo => {
-                // The figure tag is no longer needed since there's no caption. 
-                // We can use a simpler div or just the img itself, but figure is fine.
-                const figure = document.createElement('figure');
-                figure.className = 'photo-item';
-                figure.dataset.category = photo.category; 
-                
-                // The innerHTML now ONLY contains the image tag.
-                figure.innerHTML = `<img src="${photo.src}" alt="${photo.category}">`;
-                
-                photoGallery.appendChild(figure);
+                const item = document.createElement('div');
+                // Isotope uses classes for filtering, so we add the category name as a class
+                item.className = `photo-item ${photo.category}`; 
+                item.innerHTML = `<img src="${photo.src}" alt="${photo.category}">`;
+                photoGallery.appendChild(item);
+            });
+
+            // Initialize Isotope AFTER images are added to the DOM
+            iso = new Isotope(photoGallery, {
+                itemSelector: '.photo-item',
+                layoutMode: 'masonry' // A popular layout mode
             });
         }
         
-        // Function to apply the filter by adding/removing CSS classes
-        function applyFilter(filter) {
-            const allPhotos = photoGallery.querySelectorAll('.photo-item');
-            allPhotos.forEach(photo => {
-                const photoCategory = photo.dataset.category;
-                if (filter === 'all' || photoCategory === filter) {
-                    photo.classList.remove('hidden');
-                } else {
-                    photo.classList.add('hidden');
-                }
-            });
-        }
-
-        // Function to find unique categories and create the dropdown
         function populateGalleryCategories() {
             const categories = ['all', ...new Set(galleryPhotos.map(photo => photo.category))];
             categorySelect.innerHTML = '';
@@ -294,12 +270,13 @@
 
         // --- Event Listener ---
         categorySelect.addEventListener('change', () => {
-            applyFilter(categorySelect.value);
+            const filterValue = categorySelect.value === 'all' ? '*' : `.${categorySelect.value}`;
+            iso.arrange({ filter: filterValue });
         });
 
         // --- Initial Page Load ---
-        buildInitialGallery();
         populateGalleryCategories();
+        buildAndInitGallery();
     });
     </script>
 
