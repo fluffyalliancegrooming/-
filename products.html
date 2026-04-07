@@ -1029,11 +1029,10 @@
         const orderSummaryInput = document.getElementById('order-summary-input');
         let cart = [];
         const toClassName = (name) => {
-            return name.replace(/[^a-zA-Z0-9]/g, '-');
+            return name.replace(/[^a-zA-Z0-9-]/g, '');
         };
         // --- UPDATED: renderProducts Function ---
         function buildAndInitProducts() {
-            productGallery.innerHTML = '';
             products.forEach(product => {
                 const item = document.createElement('div');
                 // FIXED: Corrected the regular expression and added it here
@@ -1058,10 +1057,9 @@
                     iso = new Isotope(productGallery, {
                         itemSelector: '.product-item',
                         // Tell Isotope to NOT control layout. Let the CSS Grid do it.
-                        layoutMode: 'none', 
+                        layoutMode: 'fitRows', 
                         // We can use a simpler visible/hidden style for this mode
-                        visibleStyle: { opacity: 1, transform: 'scale(1)' },
-                        hiddenStyle: { opacity: 0, transform: 'scale(0.8)' }
+                        
                     });
                     productGallery.style.opacity = '1';
                 });
