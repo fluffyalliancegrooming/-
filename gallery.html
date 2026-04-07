@@ -45,7 +45,7 @@
             margin-left: 10px;
         }
         .photo-gallery {
-            /* Isotope will handle the layout, so we just need a container */
+            opacity: 0; transition: opacity 0.5s;
         }
         
         .photo-item {
@@ -119,6 +119,7 @@
         <p>Copyright &copy; 優獸聯萌2026</p>
     </footer>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
 
     <script>
     // --- STEP 1: DEFINE YOUR PHOTOS AND THEIR CATEGORIES ---
@@ -239,23 +240,18 @@
         const photoGallery = document.getElementById('photo-gallery');
         const categorySelect = document.getElementById('gallery-category-select');
         let iso;
-        const toClassName = (name) => {
-            // This replaces any character that is NOT a letter, number, or hyphen with nothing.
-            return name.replace(/[^a-zA-Z0-9-]/g, '');
-        };
+        
         // Function to build the initial gallery ONCE.
-        function buildAndInitGallery() {
-            // Build the HTML for the photos
+       function buildAndInitGallery() {
             galleryPhotos.forEach(photo => {
                 const item = document.createElement('div');
-                // Use the helper function to create a SAFE class name
-                const safeCategoryClass = toClassName(photo.category);
-                item.className = `photo-item ${safeCategoryClass}`; 
+                item.className = `photo-item ${photo.category}`; 
                 item.innerHTML = `<img src="${photo.src}" alt="${photo.category}">`;
                 photoGallery.appendChild(item);
             });
 
-            // Initialize Isotope AFTER images are added to the DOM
+            // --- THIS IS THE KEY CHANGE ---
+            // Use imagesLoaded to wait for all images inside the gallery
             imagesLoaded(photoGallery, function() {
                 // Now that images are loaded, initialize Isotope
                 iso = new Isotope(photoGallery, {
@@ -265,10 +261,9 @@
                 // Fade in the gallery now that it's laid out correctly
                 photoGallery.style.opacity = '1';
             });
-        
         }
         
-        function populateGalleryCategories() {
+       function populateGalleryCategories() {
             const categories = ['all', ...new Set(galleryPhotos.map(photo => photo.category))];
             categorySelect.innerHTML = '';
             categories.forEach(category => {
@@ -281,12 +276,8 @@
 
         // --- Event Listener ---
         categorySelect.addEventListener('change', () => {
-            const originalCategoryName = categorySelect.value;
-            // Use the helper function AGAIN to get the correct filter class
-            const filterValue = originalCategoryName === 'all' ? '*' : `.${toClassName(originalCategoryName)}`;
-            if (iso) {
-                iso.arrange({ filter: filterValue });
-            }
+            const filterValue = categorySelect.value === 'all' ? '*' : `.${categorySelect.value}`;
+            iso.arrange({ filter: filterValue });
         });
 
         // --- Initial Page Load ---
