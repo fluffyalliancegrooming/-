@@ -250,30 +250,27 @@
         const photoGallery = document.getElementById('photo-gallery');
         const categorySelect = document.getElementById('gallery-category-select');
 
-        // Function to render the photo grid based on a filter
+        // Function to build the initial gallery ONCE.
         function buildInitialGallery() {
-            // I've removed your empty 'caption' properties and added placeholders
-            // to ensure every photo has a caption.
-            galleryPhotos.forEach((photo, index) => {
+            galleryPhotos.forEach(photo => {
+                // The figure tag is no longer needed since there's no caption. 
+                // We can use a simpler div or just the img itself, but figure is fine.
                 const figure = document.createElement('figure');
                 figure.className = 'photo-item';
                 figure.dataset.category = photo.category; 
                 
-                figure.innerHTML = `
-                    <img src="${photo.src}" alt="${photo.category}">
-                    <figcaption>${photo.caption || 'Our Work ' + (index + 1)}</figcaption>
-                `;
+                // The innerHTML now ONLY contains the image tag.
+                figure.innerHTML = `<img src="${photo.src}" alt="${photo.category}">`;
+                
                 photoGallery.appendChild(figure);
             });
         }
         
-        // 2. Function to apply the filter by adding/removing CSS classes
+        // Function to apply the filter by adding/removing CSS classes
         function applyFilter(filter) {
             const allPhotos = photoGallery.querySelectorAll('.photo-item');
-            
             allPhotos.forEach(photo => {
                 const photoCategory = photo.dataset.category;
-                
                 if (filter === 'all' || photoCategory === filter) {
                     photo.classList.remove('hidden');
                 } else {
@@ -282,14 +279,14 @@
             });
         }
 
-        // 3. Function to find unique categories and create the dropdown
+        // Function to find unique categories and create the dropdown
         function populateGalleryCategories() {
             const categories = ['all', ...new Set(galleryPhotos.map(photo => photo.category))];
             categorySelect.innerHTML = '';
             categories.forEach(category => {
                 const option = document.createElement('option');
                 option.value = category;
-                option.textContent = category === 'all' ? 'All' : category; // Display 'All' instead of 'all'
+                option.textContent = category === 'all' ? 'All' : category;
                 categorySelect.appendChild(option);
             });
         }
