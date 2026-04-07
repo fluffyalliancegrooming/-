@@ -996,6 +996,8 @@
     document.addEventListener('DOMContentLoaded', () => {
         const productGallery = document.getElementById('product-gallery');
         const categorySelect = document.getElementById('category-select');
+        let iso; // Isotope instance
+        
         const cartCountSpan = document.getElementById('cart-count');
         const viewCartBtn = document.getElementById('view-cart-btn');
         const cartModal = document.getElementById('cart-modal');
@@ -1004,19 +1006,17 @@
         const cartTotalSpan = document.getElementById('cart-total');
         const inquiryForm = document.getElementById('inquiry-form');
         const orderSummaryInput = document.getElementById('order-summary-input');
-        
         let cart = [];
 
         // --- UPDATED: renderProducts Function ---
         function buildAndInitProducts() {
             products.forEach(product => {
                 const item = document.createElement('div');
-                // Add the category as a class for Isotope filtering
-                // Note: Replace spaces in category names for valid class names
+                // FIXED: Corrected the regular expression and added it here
                 const categoryClass = product.category.replace(/[^a-zA-Z0-9]/g, '-');
                 item.className = `product-item ${categoryClass}`;
-                
-                // This complex innerHTML logic is copied from your original renderProducts function
+                item.id = `product-${product.id}`;
+
                 const options = {};
                 product.variants.forEach(v => { Object.keys(v).forEach(key => { if (key !== 'sku' && key !== 'price' && key !== 'image') { if (!options[key]) options[key] = new Set(); options[key].add(v[key]); } }); });
                 let variantSelectorsHTML = '<div class="variant-options">';
@@ -1025,24 +1025,13 @@
                 variantSelectorsHTML += '</div>';
                 if (Object.keys(options).length === 0 || !variantSelectorsHTML.includes('<select')) { variantSelectorsHTML = ''; }
 
-                item.innerHTML = `
-                    <img src="${product.variants[0].image}" alt="${product.name}">
-                    <h3>${product.name}</h3>
-                    ${variantSelectorsHTML}
-                    <div class="price">$${product.variants[0].price.toFixed(2)}</div>
-                    <button class="add-to-cart-btn" data-product-id="${product.id}">Add to Cart</button>
-                `;
-                item.id = `product-${product.id}`;
+                item.innerHTML = `<img src="${product.variants[0].image}" alt="${product.name}"><h3>${product.name}</h3>${variantSelectorsHTML}<div class="price">$${product.variants[0].price.toFixed(2)}</div><button class="add-to-cart-btn" data-product-id="${product.id}">Add to Cart</button>`;
                 productGallery.appendChild(item);
             });
 
-            // Wait for images to load, then initialize Isotope
             imagesLoaded(productGallery, function() {
-                iso = new Isotope(productGallery, {
-                    itemSelector: '.product-item',
-                    layoutMode: 'fitRows'
-                });
-                productGallery.style.opacity = '1'; // Fade in
+                iso = new Isotope(productGallery, { itemSelector: '.product-item', layoutMode: 'fitRows' });
+                productGallery.style.opacity = '1';
             });
         }
         
@@ -1077,7 +1066,7 @@
             categories.forEach(category => {
                 const option = document.createElement('option');
                 option.value = category;
-                option.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+                option.textContent = category;
                 categorySelect.appendChild(option);
             });
         }
@@ -1166,7 +1155,9 @@
 
         // --- Event Listeners ---
         categorySelect.addEventListener('change', () => {
-            renderProducts(categorySelect.value);
+            const rawValue = categorySelect.value;
+            const filterValue = rawValue === 'all' ? '*' : `.${rawValue.replace(/[^a-zA-Z0-9]/g, '-')}`;
+            iso.arrange({ filter: filterValue });
         });
         
         // --- UPDATED: Event listener for the whole gallery ---
@@ -1194,7 +1185,7 @@
 
         // --- Initial Load ---
         populateCategories();
-        renderProducts();
+        buildAndInitProducts();
     });
     </script>
 </body>
