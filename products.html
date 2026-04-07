@@ -1156,8 +1156,10 @@
         // --- Event Listeners ---
         categorySelect.addEventListener('change', () => {
             const rawValue = categorySelect.value;
-            const filterValue = rawValue === 'all' ? '*' : `.${rawValue.replace(/[^a-zA-Z0-9]/g, '-')}`;
-            iso.arrange({ filter: filterValue });
+            const filterValue = rawValue === 'all' ? '*' : `.${rawValue.replace(/[^a-zA-Z0-9-]/g, '')}`;
+            if (iso) {
+                iso.arrange({ filter: filterValue });
+            }
         });
         
         // --- UPDATED: Event listener for the whole gallery ---
