@@ -21,18 +21,12 @@
     /* --- FINAL HEADER STYLES --- */
     header { 
         background: #fff;
-        padding: 15px 20px;
-        border-bottom: 1px solid #ddd;
-        
-        /* 1. Set the header as a positioning context. This is crucial. */
-        position: relative; 
-        
-        /* 2. Set a minimum height to ensure it looks good even if content is removed */
-        min-height: 50px;
-
-        /* 3. Use flex just to vertically align the logo if needed */
-        display: flex;
-        align-items: center;
+            padding: 10px 20px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            flex-direction: column; /* Stack items vertically */
+            align-items: center; /* Center items horizontally */
+            justify-content: center;
     }
     
     /* Style for the logo image */
@@ -40,27 +34,17 @@
         /* The logo stays in the normal document flow, on the left */
         width: 80px;
         height: auto;
+        margin-bottom: center; /* Add some space below the logo */
     }
 
     /* Style for the main title */
     header h1 {
-        margin: 0;
-        font-size: 1.8em;
-        
-        /* 4. Take the title out of the normal flow */
-        position: absolute;
-        
-        /* 5. The classic centering trick: */
-        left: 50%; /* Move the element's left edge to the page's 50% mark */
-        top: 50%;  /* Move the element's top edge to the header's 50% mark */
-        transform: translate(-50%, -50%); /* Shift the element back by half its own width and height */
-
-        /* 6. Prevent title from overlapping the logo on very small screens */
-        max-width: calc(100% - 200px); /* 100% width minus space for the logo and right padding */
-        text-align: center; /* Ensures text inside is centered if it wraps */
+        nav { display: flex; justify-content: center; background: #444; }
+        nav a { color: white; padding: 14px 20px; text-decoration: none; text-align: center; }
+        nav a:hover { background-color: #555; }
     }
     /* --- END OF FINAL STYLES --- */
-
+    
     nav { 
         display: flex; 
         justify-content: center; 
@@ -129,9 +113,13 @@
     </nav>
 
     <div class="container">
+        <div class="about-image">
+                <!-- You can change this image to whatever you like! -->
+                <img src="gallery photo/IMG_5724.jpg" alt="Our pet spa">
+            </div>
         <h2>關於我們</h2>
         <p>
-           
+           Hello! 我地係店長柑柑同桔桔啊,我地呢到有專業既美容服務同埋有好多唔同款式既產品,你地都快d黎試下啦!
         </p>
 
         <h2>我們的服務</h2>
