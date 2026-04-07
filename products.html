@@ -1187,12 +1187,12 @@
 
         // --- Event Listeners ---
         categorySelect.addEventListener('change', () => {
-                const rawCategoryName = categorySelect.value;
-                const filterValue = rawCategoryName === 'all' ? '*' : `.${toClassName(rawCategoryName)}`;
-                if (iso) {
-                    iso.arrange({ filter: filterValue });
-                }
-            });
+            const rawValue = categorySelect.value;
+            const filterValue = rawValue === 'all' ? '*' : `.${toClassName(rawValue)}`;
+            if (iso) {
+                iso.arrange({ filter: filterValue });
+            }
+        });
         
         // --- UPDATED: Event listener for the whole gallery ---
         productGallery.addEventListener('click', (e) => {
