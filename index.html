@@ -65,24 +65,30 @@
         background-color: #555; 
     }
     .container { 
-        max-width: 1200px;
-            margin: 0 auto;
+            max-width: 1000px; /* Adjusted for a better fit */
+            margin: 0 auto; 
             padding: 20px; 
-            text-align: center;
-    }
+        }
     .title-center {
             text-align: center; /* This will center the Q&A title */
         }
+        .about-section {
+            display: flex;
+            align-items: flex-start; /* Aligns items to the top */
+            gap: 30px; 
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
         .about-image {
             flex-shrink: 0;
-            /* --- 3. SMALLER IMAGE --- */
-            width: 220px;
-            height: 220px;
+            width: 250px; /* Slightly larger image */
+            height: auto;
         }
         .about-image img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: auto;
             border-radius: 8px;
         }
         .about-text h2 {
@@ -132,6 +138,26 @@
         background: #333; 
         color: #fff; 
     }
+    @media (max-width: 768px) {
+            header h1 {
+                position: static; /* Let title flow normally on mobile */
+                transform: none;
+                text-align: center;
+                width: 100%;
+            }
+            header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .about-section {
+                flex-direction: column;
+                align-items: center; /* Center items when stacked */
+                text-align: center;
+            }
+            .about-text {
+                text-align: justify;
+            }
+        }
 </style>
 
 
@@ -157,7 +183,6 @@
     <div class="container">
         <div class="about-section">
             <div class="about-image">
-                <!-- You can change this image to whatever you like! -->
                 <img src="gallery photo/IMG_5724.jpg" alt="Our pet spa">
             </div>
         <div class="about-text">
@@ -166,7 +191,7 @@
                 Hello! 我地係店長柑柑同桔桔啊,我地呢到有專業既美容服務同埋有好多唔同款式既產品,你地都快d黎試下啦!
             </p>
         </div>
-        </div>">    
+        </div>
         
 
         <h2>我們的服務</h2>
