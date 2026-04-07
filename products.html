@@ -54,15 +54,12 @@
         }
         
         #product-gallery {
-            opacity: 0; 
-            transition: opacity 0.5s;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 15px;
         }
 
         .product-item {
-            margin-bottom: 0; /* Gap is handled by the grid */
             background: #fff;
             border: 1px solid #ddd;
             border-radius: 8px;
@@ -70,9 +67,6 @@
             box-sizing: border-box; 
             display: flex;
             flex-direction: column;
-
-            /* NEW: Add transition for the filtering animation */
-            transition: transform 0.4s, opacity 0.4s;
             
         }
         .product-item.isotope-hidden {
@@ -149,12 +143,7 @@
             max-width: 700px;
             border-radius: 10px;
         }
-        @media (max-width: 992px) {
-            #product-gallery { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 576px) {
-            #product-gallery { grid-template-columns: 1fr; }
-        }
+        
 
         .close-btn { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
         #cart-items-list { list-style: none; padding: 0; }
@@ -215,8 +204,7 @@
     <footer>
         <p>Copyright &copy; 優獸聯萌2026 </p>
     </footer>
-    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+    
     <script>
     // --- NEW: UPDATED DATABASE OF YOUR PRODUCTS ---
     const products = [
@@ -1016,9 +1004,7 @@
     // --- JAVASCRIPT LOGIC ---
     document.addEventListener('DOMContentLoaded', () => {
         const productGallery = document.getElementById('product-gallery');
-        const categorySelect = document.getElementById('category-select');
-        let iso; // Isotope instance
-        
+        const categorySelect = document.getElementById('category-select');      
         const cartCountSpan = document.getElementById('cart-count');
         const viewCartBtn = document.getElementById('view-cart-btn');
         const cartModal = document.getElementById('cart-modal');
@@ -1028,16 +1014,17 @@
         const inquiryForm = document.getElementById('inquiry-form');
         const orderSummaryInput = document.getElementById('order-summary-input');
         let cart = [];
-        const toClassName = (name) => {
-            return name.replace(/[^a-zA-Z0-9-]/g, '');
-        };
-        // --- UPDATED: renderProducts Function ---
-        function buildAndInitProducts() {
-            products.forEach(product => {
+        
+        function renderProducts(filter = 'all') {
+            productGallery.innerHTML = ''; // Clear the gallery
+
+            const filteredProducts = (filter === 'all')
+                ? products
+                : products.filter(p => p.category === filter);
+
+            filteredProducts.forEach(product => {
                 const item = document.createElement('div');
-                // FIXED: Corrected the regular expression and added it here
-                const categoryClass = product.category.replace(/[^a-zA-Z0-9]/g, '-');
-                item.className = `product-item ${categoryClass}`;
+                item.className = 'product-item';
                 item.id = `product-${product.id}`;
 
                 const options = {};
@@ -1051,18 +1038,6 @@
                 item.innerHTML = `<img src="${product.variants[0].image}" alt="${product.name}"><h3>${product.name}</h3>${variantSelectorsHTML}<div class="price">$${product.variants[0].price.toFixed(2)}</div><button class="add-to-cart-btn" data-product-id="${product.id}">Add to Cart</button>`;
                 productGallery.appendChild(item);
             });
-
-            imagesLoaded(productGallery, function() {
-                    // --- CRITICAL CHANGE HERE ---
-                    iso = new Isotope(productGallery, {
-                        itemSelector: '.product-item',
-                        // Tell Isotope to NOT control layout. Let the CSS Grid do it.
-                        layoutMode: 'fitRows', 
-                        // We can use a simpler visible/hidden style for this mode
-                        
-                    });
-                    productGallery.style.opacity = '1';
-                });
         }
         
         // --- NEW: Function to handle variant changes ---
@@ -1185,11 +1160,7 @@
 
         // --- Event Listeners ---
         categorySelect.addEventListener('change', () => {
-            const rawValue = categorySelect.value;
-            const filterValue = rawValue === 'all' ? '*' : `.${toClassName(rawValue)}`;
-            if (iso) {
-                iso.arrange({ filter: filterValue });
-            }
+            renderProducts(categorySelect.value);
         });
         
         // --- UPDATED: Event listener for the whole gallery ---
@@ -1217,7 +1188,7 @@
 
         // --- Initial Load ---
         populateCategories();
-        buildAndInitProducts();
+        renderProducts('all');
     });
     </script>
 </body>
