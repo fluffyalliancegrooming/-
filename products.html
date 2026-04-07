@@ -67,6 +67,7 @@
             padding: 15px;
             display: flex;
             flex-direction: column;
+            box-sizing: border-box;
         }
 
         .product-item img {
@@ -1007,7 +1008,9 @@
         const inquiryForm = document.getElementById('inquiry-form');
         const orderSummaryInput = document.getElementById('order-summary-input');
         let cart = [];
-
+        const toClassName = (name) => {
+            return name.replace(/[^a-zA-Z0-9]/g, '-');
+        };
         // --- UPDATED: renderProducts Function ---
         function buildAndInitProducts() {
             products.forEach(product => {
@@ -1155,8 +1158,9 @@
 
         // --- Event Listeners ---
         categorySelect.addEventListener('change', () => {
-            const rawValue = categorySelect.value;
-            const filterValue = rawValue === 'all' ? '*' : `.${rawValue.replace(/[^a-zA-Z0-9-]/g, '')}`;
+            const rawCategoryName = categorySelect.value;
+            // Use the helper function again to get the matching class name
+            const filterValue = rawCategoryName === 'all' ? '*' : `.${toClassName(rawCategoryName)}`;
             if (iso) {
                 iso.arrange({ filter: filterValue });
             }
