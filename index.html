@@ -133,12 +133,10 @@
             font-weight: bold;
         }
     footer { 
-            text-align: center; 
             padding: 20px; 
-            margin-top: 40px; 
             background: #333; 
             color: #fff; 
-    }
+        }
         .footer-container {
             max-width: 1000px;
             margin: 0 auto;
@@ -180,7 +178,20 @@
             .about-text {
                 text-align: justify;
             }
-            
+            .footer-container {
+                justify-content: center; /* Center everything in the footer on mobile */
+                text-align: center;
+            }
+            .footer-copyright {
+                width: 100%;
+                text-align: center;
+                order: 1; /* Puts copyright text first on mobile */
+            }
+            .footer-images {
+                width: 100%;
+                justify-content: center;
+                order: 2; /* Puts images second on mobile */
+            }
         }
         
 </style>
@@ -222,13 +233,13 @@
         <h2>我們的服務</h2>
         <ul>
             <a href="booking.html">冲涼全套</a>
-              
+            <br> 
             <a href="booking.html">全剷留頭尾</a>
-            
+            <br>
             <a href="booking.html">半手剪</a>
-            
+            <br>
             <a href="booking.html">全手剪</a>
-            
+            <br>
             
         </ul>
         <h2 class="title-center">Q&A</h2>
