@@ -56,9 +56,8 @@
         #product-gallery {
             opacity: 0; 
             transition: opacity 0.5s;
-            /* NEW: Re-introducing CSS Grid for perfect alignment */
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* Always 3 columns */
+            grid-template-columns: repeat(3, 1fr);
             gap: 15px;
         }
 
@@ -77,9 +76,11 @@
             
         }
         .product-item.isotope-hidden {
-            transform: scale(0.001);
+            transform: scale(0.8);
             opacity: 0;
-            z-index: -1; /* Send it behind other items */
+            z-index: -1;
+            /* We make it effectively invisible but don't remove it, so the grid doesn't jump */
+            pointer-events: none;
         }
         .product-item img {
             max-width: 100%;
@@ -1056,9 +1057,11 @@
                     // --- CRITICAL CHANGE HERE ---
                     iso = new Isotope(productGallery, {
                         itemSelector: '.product-item',
-                        // Tell Isotope to use its own vertical layout logic
-                        // but let our CSS Grid handle the horizontal positioning.
-                        layoutMode: 'vertical', 
+                        // Tell Isotope to NOT control layout. Let the CSS Grid do it.
+                        layoutMode: 'none', 
+                        // We can use a simpler visible/hidden style for this mode
+                        visibleStyle: { opacity: 1, transform: 'scale(1)' },
+                        hiddenStyle: { opacity: 0, transform: 'scale(0.8)' }
                     });
                     productGallery.style.opacity = '1';
                 });
@@ -1184,13 +1187,12 @@
 
         // --- Event Listeners ---
         categorySelect.addEventListener('change', () => {
-            const rawCategoryName = categorySelect.value;
-            // Use the helper function again to get the matching class name
-            const filterValue = rawCategoryName === 'all' ? '*' : `.${toClassName(rawCategoryName)}`;
-            if (iso) {
-                iso.arrange({ filter: filterValue });
-            }
-        });
+                const rawCategoryName = categorySelect.value;
+                const filterValue = rawCategoryName === 'all' ? '*' : `.${toClassName(rawCategoryName)}`;
+                if (iso) {
+                    iso.arrange({ filter: filterValue });
+                }
+            });
         
         // --- UPDATED: Event listener for the whole gallery ---
         productGallery.addEventListener('click', (e) => {
