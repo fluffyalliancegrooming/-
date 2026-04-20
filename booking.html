@@ -117,10 +117,29 @@
         
         
         <div class="booking-widget-container">
-            <!-- Calendly inline widget begin -->
-            <div class="calendly-inline-widget" data-url="https://calendly.com/wutszho20032003" style="min-width:320px;height:700px;"></div>
-            <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-<!-- Calendly inline widget end -->
+            <script src="https://bookings.nimbuspop.com/assets/embed.js"></script>
+
+            <div id="inline-container"></div>
+
+            <script>
+
+	// Initialize inline embed after script loads
+
+	        window.onload = function() {
+
+		            Bookings.inlineEmbed({
+
+			        url: "https://sdsadsad.zohobookings.com/portal-embed#/4757689000000037005",
+
+			        parent: "#inline-container",
+
+			        height: "600px"
+
+		});
+
+	};
+
+</script>
             
         </div>
     </div>
